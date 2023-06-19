@@ -3,8 +3,6 @@ import mediapipe as mp
 import time
 from multiprocessing import Process, Queue
 import os
-from tkinter import Tk
-from tkinter.filedialog import askdirectory
 
 
 def get_path():
@@ -15,12 +13,8 @@ def get_path():
 
 
 def select_folder_dialog():
-    # Create a Tkinter root window
-    root = Tk()
-    root.withdraw()
-
-    # Display the folder selection dialog
-    folder_path = askdirectory()
+    current_path = get_path()
+    folder_path = f"(current_path)/save_2/"
     return folder_path
 
 
@@ -96,17 +90,17 @@ def detect_faces(video_file, face_crop_folder, result, process_id):
             frame_width = int(frame.shape[1] * 0.3)
             frame_height = int(frame.shape[0] * 0.3)
 
-            cv2.imshow(f'frame_0', cv2.resize(
+            cv2.imshow(f'video_0', cv2.resize(
                 frame, (frame_width, frame_height)))
-            cv2.moveWindow(f'frame_0', 500, 10)
+            cv2.moveWindow(f'video_0', 500, 10)
 
-            cv2.imshow(f'frame_1', cv2.resize(
+            cv2.imshow(f'video_1', cv2.resize(
                 frame, (frame_width, frame_height)))
-            cv2.moveWindow(f'frame_1', 500, frame_height + 55)
+            cv2.moveWindow(f'video_1', 500, frame_height + 55)
 
-            cv2.imshow(f'frame_2', cv2.resize(
+            cv2.imshow(f'video_2', cv2.resize(
                 frame, (frame_width, frame_height)))
-            cv2.moveWindow(f'frame_2', 500, 2 * (frame_height + 50))
+            cv2.moveWindow(f'video_2', 500, 2 * (frame_height + 50))
 
             if cv2.waitKey(10) == ord('q'):  # exit when 'q' is pressed
                 break

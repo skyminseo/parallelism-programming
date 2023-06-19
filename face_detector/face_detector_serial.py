@@ -2,8 +2,6 @@ import cv2
 import mediapipe as mp
 import time
 import os
-from tkinter import Tk
-from tkinter.filedialog import askdirectory
 
 
 def get_path():
@@ -14,13 +12,8 @@ def get_path():
 
 
 def select_folder_dialog():
-    # Create a Tkinter root window
-    root = Tk()
-    root.withdraw()
-
-    # Display the folder selection dialog
-    folder_path = askdirectory()
-
+    current_path = get_path()
+    folder_path = f"(current_path)/save_1/"
     return folder_path
 
 
@@ -92,6 +85,7 @@ with mp_face_detection.FaceDetection(model_selection=1, min_detection_confidence
                     # Add the current face coordinates to the list of previously detected faces
                     prev_faces.append((xmin, ymin, width, height))
 
+                # Detecting the face 2000 times and break
                 else:
                     consecutive_duplicates += 1
                     if consecutive_duplicates >= 2000:
@@ -99,8 +93,8 @@ with mp_face_detection.FaceDetection(model_selection=1, min_detection_confidence
 
         frame_width = int(frame.shape[1] * 0.5)
         frame_height = int(frame.shape[0] * 0.5)
-        cv2.imshow('frame', cv2.resize(frame, (frame_width, frame_height)))
-        cv2.moveWindow('frame', 300, 200)
+        cv2.imshow('video', cv2.resize(frame, (frame_width, frame_height)))
+        cv2.moveWindow('video', 300, 200)
 
         if cv2.waitKey(10) == ord('q'):  # exit when 'q' is pressed
             break
